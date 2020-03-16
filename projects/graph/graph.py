@@ -13,33 +13,51 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 not in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        else:
+            raise IndexError('Vertex does not exist')
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        if vertex_id in self.vertices:
+            return self.vertices[vertex_id]
+        else:
+            print("ERROR: vertex does not exist")
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # Create a queue
+        # Enqueue the starting vertex
+        # Create a set to store visited vertices
+        # While the queue is not empy...
+            # Dequeue the first vertex
+            # Check if it's been visited
+            # If it hasn't been visited...
+                # Mark it as visited
+                # Enqueue all it's neighbors to back of queue
+        q = []
+        visited = {1, 2, 4, 3, 6, 7, 5}
+        
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        stack = []
+        visited = {1, 2, 4, 7, 6, 3, 5}
 
     def dft_recursive(self, starting_vertex):
         """
