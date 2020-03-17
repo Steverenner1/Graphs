@@ -106,6 +106,11 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
+        # Create queue
+        # Initialize starting point, find path
+        # Initialize set
+        # remove first item, find out if vertices have been visited
+        # Copy new path
         queue = Queue()
         queue.enqueue([starting_vertex])
         visited = set()
@@ -127,6 +132,11 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
+        # Create stack
+        # Initialize starting point, find path
+        # Initialize set
+        # pop first item, find out if vertices have been visited
+        # Copy new path
         stack = Stack()
         stack.push([starting_vertex])
         visited = set()
