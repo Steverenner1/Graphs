@@ -1,6 +1,25 @@
+import random
+
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
+
 class User:
     def __init__(self, name):
         self.name = name
+
+    def __repr__(self):
+        return f'{self.name}'
 
 class SocialGraph:
     def __init__(self):
@@ -45,8 +64,33 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
-
+        for i in range(num_users):
+            self.add_user(f"User {i+1}")
         # Create friendships
+
+        # Creating random friendships
+        # total friendships = average friendships multiplied by the number of users
+        # making list of possible friendships
+        # avoid duplicates by making sure the first id is smaller than the second id
+
+        randomFriendships = []
+        for userId in self.users:
+            for friendId in range(userId + 1, self.last_id + 1):
+                randomFriendships.append((userId, friendId))
+        
+        # randomizing list
+        random.shuffle(randomFriendships)
+        print("random friendships:")
+        print(randomFriendships)
+
+        # Slicing from the front to create total friendships
+        totFriendships = avg_friendships * num_users // 2
+        print(f"Friendships to create: {totFriendships}\n")
+        for i in range(totFriendships):
+            friendship = randomFriendships[i]
+            self.add_friendship(friendship[0], friendship[1])
+
+
 
     def get_all_social_paths(self, user_id):
         """
@@ -57,14 +101,34 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+        q = Queue()
+        q.enqueue(user_id)
+
         visited = {}  # Note that this is a dictionary, not a set
         # !!!! IMPLEMENT ME
+
+        # Implement queue, FIFO
+        # Dequeue first index
+        # Find out if vertex has/has not been visited
+        # Implement as visited and make values
+        # Add neightbors to end of queue
+
+        while q.size() > 0:
+            v = q.dequeue()
+            if v not in visited:
+                visited[v] = list(self.friendships[v])
+                for friend in self.friendships[v]:
+                    q.enqueue(friend)
         return visited
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
+    print("Users:")
+    print(sg.users)
+    print("Friendships:")
     print(sg.friendships)
     connections = sg.get_all_social_paths(1)
+    print("Connections:")
     print(connections)
